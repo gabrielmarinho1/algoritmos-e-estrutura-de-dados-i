@@ -1,3 +1,19 @@
+def criptografia(chave, texto):
+    # Criptografa o texto
+    for caractere in texto:
+
+        # Se o caractere for uma letra maiúscula
+        if caractere.isupper():
+            print(chr((ord(caractere) - 65 + chave) % 26 + 65), end="")
+
+        # Se o caractere for uma letra minúscula
+        elif caractere.islower():
+            print(chr((ord(caractere) - 97 + chave) % 26 + 97), end="")
+            
+        # Se não for uma letra, imprime o caractere original
+        else:
+            print(caractere, end="")
+
 def main():
     # Solicita a chave ao usuário
     chave_input = input("Insira a chave: ")
@@ -13,22 +29,10 @@ def main():
     # Requisita do texto a ser criptografado
     texto = input("Insira o texto: ")
 
+    # Imprime o texto criptografado
     print("Texto criptografado: ", end="")
-
-    # Criptografa o texto
-    for caractere in texto:
-        
-        # Se o caractere for uma letra maiúscula
-        if caractere.isupper():
-            print(chr((ord(caractere) - 65 + chave) % 26 + 65), end="")
-
-        # Se o caractere for uma letra minúscula
-        elif caractere.islower():
-            print(chr((ord(caractere) - 97 + chave) % 26 + 97), end="")
-            
-        # Se não for uma letra, imprime o caractere original
-        else:
-            print(caractere, end="")
+    
+    criptografia(chave, texto)
 
     # Imprime uma nova linha no final
     print()
