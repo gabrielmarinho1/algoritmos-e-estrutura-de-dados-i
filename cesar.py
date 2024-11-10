@@ -1,5 +1,5 @@
 def main():
-    # Solicita a chave ao usuário e verifica se é um número válido
+    # Solicita a chave ao usuário
     chave_input = input("Insira a chave: ")
     
     # Verifica se a chave fornecida é um número
@@ -10,13 +10,14 @@ def main():
     # Converte a chave de string para inteiro
     chave = int(chave_input)
 
-    # Requisição do texto a ser criptografado
+    # Requisita do texto a ser criptografado
     texto = input("Insira o texto: ")
 
     print("Texto criptografado: ", end="")
 
     # Criptografa o texto
     for caractere in texto:
+        
         # Se o caractere for uma letra maiúscula
         if caractere.isupper():
             print(chr((ord(caractere) - 65 + chave) % 26 + 65), end="")
