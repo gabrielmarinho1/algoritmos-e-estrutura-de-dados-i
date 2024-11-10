@@ -13,7 +13,7 @@ def main():
     # Requisição do texto a ser criptografado
     texto = input("Insira o texto: ")
 
-    print("texto criptografado: ", end="")
+    print("Texto criptografado: ", end="")
 
     # Criptografa o texto
     for caractere in texto:
@@ -32,5 +32,11 @@ def main():
     # Imprime uma nova linha no final
     print()
 
-if __name__ == "__main__":
-    main()
+main()
+
+# Exemplos de uso:
+# Insira a chave: 2
+# Insira um texto: Algoritmos
+# Texto criptografado: Cniqtkvoqu
+
+# o mesmo ocorre quando se usa a chave "28"
