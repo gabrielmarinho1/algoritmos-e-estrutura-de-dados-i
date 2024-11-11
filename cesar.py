@@ -1,43 +1,43 @@
-def criptografia(chave, texto):
-    # Criptografa o texto
-    for caractere in texto:
+class CaesarCipherQueue:
+    def __init__(self, chave):
+        self.fila = []
+        self.chave = chave
 
-        # Se o caractere for uma letra maiúscula
-        if caractere.isupper():
-            print(chr((ord(caractere) - 65 + chave) % 26 + 65), end="")
+    # Enfileira cada caractere do texto para ser cifrado
+    def enqueue_text(self, texto):
+        for char in texto:
+            self.fila.append(char)
 
-        # Se o caractere for uma letra minúscula
-        elif caractere.islower():
-            print(chr((ord(caractere) - 97 + chave) % 26 + 97), end="")
+    # Desenfileira e aplica a cifra de César em cada caractere
+    def encrypt(self):
+        encrypted_text = ""
+        
+        while self.fila:
+            char = self.fila.pop(0)  # Desenfileira o primeiro caractere
             
-        # Se não for uma letra, imprime o caractere original
-        else:
-            print(caractere, end="")
+            # Aplica a cifra de César apenas em letras
+            if char.isupper():
+                encrypted_char = chr((ord(char) - 65 + self.chave) % 26 + 65)
+            elif char.islower():
+                encrypted_char = chr((ord(char) - 97 + self.chave) % 26 + 97)
+            else:
+                encrypted_char = char  # Mantém o caractere se não for letra
+            
+            encrypted_text += encrypted_char
+        
+        return encrypted_text
 
-def main():
-    # Solicita a chave ao usuário
-    chave_input = input("Insira a chave: ")
-    
-    # Verifica se a chave fornecida é um número
-    if not chave_input.isdigit():
-        print("A chave deve ser um número.")
-        return 1
 
-    # Converte a chave de string para inteiro
-    chave = int(chave_input)
+chave = int(input("Insira a chave: "))
+texto = input("Insira o texto: ")
 
-    # Requisita do texto a ser criptografado
-    texto = input("Insira o texto: ")
+# Cria a fila da cifra de César
+cipher_queue = CaesarCipherQueue(chave)
+cipher_queue.enqueue_text(texto)
 
-    # Imprime o texto criptografado
-    print("Texto criptografado: ", end="")
-    
-    criptografia(chave, texto)
-
-    # Imprime uma nova linha no final
-    print()
-
-main()
+# Criptografa o texto e exibe o resultado
+ciphered_text = cipher_queue.encrypt()
+print("Texto criptografado:", ciphered_text)
 
 # Exemplos de uso:
 # Insira a chave: 2
