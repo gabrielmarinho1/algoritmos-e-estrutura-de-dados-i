@@ -32,14 +32,36 @@ def capturar_ingredientes():
                 break
             else:
                 print("Por favor, insira 1 para 'Sim' ou 0 para 'Não'.")
-    return [user_ingredients]
+    return user_ingredients
 
-# Solicitar os ingredientes ao usuário
+# Função para verificar receitas possíveis com os ingredientes fornecidos
+def verificar_receitas(user_ingredients):
+    possiveis = []
+    faltantes = []
+
+    for i, receita in enumerate(X):
+        # Verificar se todos os ingredientes necessários para a receita estão disponíveis
+        diferenca = [feature_names[j] for j in range(len(user_ingredients)) if receita[j] == 1 and user_ingredients[j] == 0]
+        if not diferenca:
+            return y[i], []  # Receita completa encontrada
+        else:
+            possiveis.append((y[i], diferenca))
+    
+    return None, possiveis
+
+# Capturar os ingredientes do usuário
 ingredientes_disponiveis = capturar_ingredientes()
 
-# Fazer a previsão com os ingredientes fornecidos
-previsao = clf.predict(ingredientes_disponiveis)
-print(f"\nCom os ingredientes disponíveis, você pode fazer: {previsao[0]}")
+# Verificar se é possível fazer uma receita
+receita, receitas_possiveis = verificar_receitas(ingredientes_disponiveis)
+
+if receita:
+    print(f"\nCom os ingredientes disponíveis, você pode fazer: {receita}")
+else:
+    print("\nCom os ingredientes disponíveis, não é possível fazer uma receita completa.")
+    print("Aqui estão as receitas possíveis e os ingredientes que faltam:")
+    for nome, faltando in receitas_possiveis:
+        print(f"- {nome}: falta {', '.join(faltando)}")
 
 # Visualizar a árvore de decisão
 plt.figure(figsize=(12, 8))
